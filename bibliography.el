@@ -7,8 +7,6 @@
 ;; Keywords: convenience
 ;; Version: 0.2
 
-;; Package-Requires: ((emacs "27.1") ("org-inline-pdf") ("nano-emacs"))
-
 ;; This file is not part of GNU Emacs.
 
 ;; This file is free software; you can redistribute it and/or modify
