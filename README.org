@@ -2,3 +2,49 @@
 An Emacs minor-mode for my /annotated bibliography/
 
 *CREDITS* The idea of an annotated bibliography is not mine! See [[http://cachestocaches.com/2020/3/org-mode-annotated-bibliography/][Managing my Annotated Bibliography with Emacs' Org Mode]] by [[http://gjstein.com/][Gregory J Stein]]. Neither is the idea of using a minor-mode to accomplish this. This is a limited/modified version of [[https://github.com/rougier/org-bib-mode][org-bib-mode]] by [[https://www.labri.fr/perso/nrougier/][Nicolas P. Rougier]]
+* Introduction
+** Pre-Requisites
+=bibliography-mode= requires the following packages:
+- [[https://github.com/rougier/nano-emacs][nano-emacs]] (the previews are defined using the nano-faces)
+- [[https://github.com/shg/org-inline-pdf.el][org-inline-pdf]] (optional, if you want a neat preview of the PDF)
+** Installation
+The starting point is the file =bibliography.el= which can obtained by
+- Cloning this repository and placing =bibliography.el= in your Emacs load-path
+- [[https://github.com/radian-software/straight.el][straight.el]]
+- [[https://github.com/quelpa/quelpa][quelpa.el]]
+
+Once you have =bibliography.el= include it in your configuration (=init.el=)
+#+begin_src emacs-lisp
+(require 'bibliography)
+#+end_src
+Now set the path for your /annotated bibliography/ path (for instance, =papers.org=)
+#+begin_src emacs-lisp
+(setq bibliography-path "~/papers.org")
+#+end_src
+That's it! Open up your bibliography file and turn on the minor-mode =M-x bibliography-mode=
+* Usage
+| Key | Description                                         |
+|-----+-----------------------------------------------------|
+| =a=   | Interactively add bibtex entries                    |
+| =i=   | Interactively import bibtex entries from a file     |
+| =e=   | Export bibliography to a bibtex file                |
+| =t=   | Add tags to each entry                              |
+| =SPC= | Generate side-by-side preview of the entry at point |
+| =RET= | Hide the preview                                    |
+| =o=   | Show PDF                                            |
+| =s=   | Search entries using =org-tag-views=                  |
+| =q=   | Quite bibliography-mode                             |
+
+
+Note that to be able to view the PDFs you must have pre-downloaded the PDF file and added
+a key =PDF = {/path/to/pdf}= to the bibtex you use to add an entry.
+
+* Entry Properties
+Use these properties to search your bibliography using =org-tag-views=
+- =:TITLE:=
+- =:BTYPE:=
+- =:ABSTRACT:=
+- =:AUTHOR:=
+- =:KEYWORDS:=
+- =:URL:=
+- =:YEAR:=
