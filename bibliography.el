@@ -60,7 +60,7 @@
             ""
             (cdr (assq :title entry))))))
 
-(defun bibliography/add-bib-entries ()
+(defun add-bib-entries ()
   "Interactively create new entries with bibtex input"
 
   (interactive)
@@ -81,7 +81,7 @@
   (save-buffer)
   (setq buffer-read-only t))
 
-(defun bibliography/tag-entry ()
+(defun tag-entry ()
   "Interactively tag entry at current point"
 
   (interactive)
