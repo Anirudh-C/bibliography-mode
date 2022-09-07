@@ -1,4 +1,4 @@
-* =bibliography-mode=
+* bibliography-mode
 An Emacs minor-mode for my /annotated bibliography/
 
 *CREDITS* The idea of an annotated bibliography is not mine! See [[http://cachestocaches.com/2020/3/org-mode-annotated-bibliography/][Managing my Annotated Bibliography with Emacs' Org Mode]] by [[http://gjstein.com/][Gregory J Stein]]. Neither is the idea of using a minor-mode to accomplish this. This is a limited/modified version of [[https://github.com/rougier/org-bib-mode][org-bib-mode]] by [[https://www.labri.fr/perso/nrougier/][Nicolas P. Rougier]]
