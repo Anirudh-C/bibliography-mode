@@ -21,6 +21,10 @@ Now set the path for your /annotated bibliography/ path (for instance, =papers.o
 #+begin_src emacs-lisp
 (setq bibliography-path "~/papers.org")
 #+end_src
+Finally, to allow =bibliography-mode= to search in your bibliography
+#+begin_src emacs-lisp
+(add-to-list org-agenda-files bibliography-path)
+#+end_src
 That's it! Open up your bibliography file and turn on the minor-mode =M-x bibliography-mode=
 * Usage
 | Key | Description                                         |
@@ -29,9 +33,9 @@ That's it! Open up your bibliography file and turn on the minor-mode =M-x biblio
 | =i=   | Interactively import bibtex entries from a file     |
 | =e=   | Export bibliography to a bibtex file                |
 | =t=   | Add tags to each entry                              |
-| =SPC= | Generate side-by-side preview of the entry at point |
-| =RET= | Hide the preview                                    |
-| =o=   | Show PDF                                            |
+| =RET= | Generate side-by-side preview of the entry at point |
+| =DEL= | Hide the preview                                    |
+| =p=   | Show PDF                                            |
 | =s=   | Search entries using =org-tag-views=                  |
 | =q=   | Quite bibliography-mode                             |
 

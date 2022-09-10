@@ -5,7 +5,7 @@
 ;; Author: Anirudh Chandramouli <anirudhvan@gmail.com>
 ;; Homepage: https://github.com/Anirudh-C/bibliography-mode
 ;; Keywords: convenience
-;; Version: 0.2
+;; Version: 0.3
 
 ;; This file is not part of GNU Emacs.
 
@@ -24,6 +24,10 @@
 
 ;;; News
 
+;; Version 0.3
+;; - Bug fixes for org-bibtex-read
+;; - Modified some keybindings
+;;
 ;; Version 0.2
 ;; - Added previews and utilities
 ;; - Documentation added
@@ -73,11 +77,13 @@
            (with-temp-buffer
              (insert input)
              (goto-char (point-min))
+             (bibtex-mode)
+             (bibtex-set-dialect 'biblatex t)
              (org-bibtex-read-buffer (current-buffer)))))
+      (end-of-buffer)
       (dotimes (_ entries)
         (save-excursion (org-bibtex-write))
-        (re-search-forward org-property-end-re)
-        (open-line 1) (forward-char 1))))
+        (end-of-buffer))))
   (save-buffer)
   (setq buffer-read-only t))
 
@@ -185,10 +191,15 @@
 
   (interactive "fFile: ")
   (setq buffer-read-only nil)
-  (dotimes (_ (org-bibtex-read-file file))
+  (end-of-buffer)
+  (dotimes (_
+            (with-temp-buffer
+              (insert-file-contents file)
+              (bibtex-mode)
+              (bibtex-set-dialect 'biblatex t)
+              (org-bibtex-read-buffer (current-buffer))))
     (save-excursion (org-bibtex-write))
-    (re-search-forward org-property-end-re)
-    (open-line 1) (forward-char 1))
+    (end-of-buffer))
   (save-buffer)
   (setq buffer-read-only t))
 
@@ -229,9 +240,9 @@
             (define-key map (kbd "i") 'import-bib-entries)
             (define-key map (kbd "e") 'org-bibtex)
             (define-key map (kbd "t") 'tag-entry)
-            (define-key map (kbd "SPC") 'show-preview)
-            (define-key map (kbd "RET") 'hide-preview)
-            (define-key map (kbd "o") 'show-pdf)
+            (define-key map (kbd "RET") 'show-preview)
+            (define-key map (kbd "DEL") 'hide-preview)
+            (define-key map (kbd "p") 'show-pdf)
             (define-key map (kbd "s") 'org-tags-view)
             (define-key map (kbd "q") 'bibliography-deactivate)
             map)
