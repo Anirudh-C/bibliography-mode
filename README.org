@@ -6,6 +6,7 @@ An Emacs minor-mode for my /annotated bibliography/
 ** Pre-Requisites
 =bibliography-mode= requires the following packages:
 - [[https://github.com/rougier/nano-emacs][nano-emacs]] (the previews are defined using the nano-faces)
+- [[https://github.com/emacs-helm/helm][helm]] (searching the bibliography is built on a helm source)
 - [[https://github.com/shg/org-inline-pdf.el][org-inline-pdf]] (optional, if you want a neat preview of the PDF)
 ** Installation
 The starting point is the file =bibliography.el= which can obtained by
@@ -36,19 +37,11 @@ That's it! Open up your bibliography file and turn on the minor-mode =M-x biblio
 | =RET= | Generate side-by-side preview of the entry at point |
 | =DEL= | Hide the preview                                    |
 | =p=   | Show PDF                                            |
+| =l=   | Open entry URL                                      |
 | =s=   | Search entries using =org-tag-views=                  |
 | =q=   | Quite bibliography-mode                             |
 
 
 Note that to be able to view the PDFs you must have pre-downloaded the PDF file and added
-a key =PDF = {/path/to/pdf}= to the bibtex you use to add an entry.
+a key =PDF = {/path/to/pdf}= to the bibtex you use.
 
-* Entry Properties
-Use these properties to search your bibliography using =org-tag-views=
-- =:TITLE:=
-- =:BTYPE:=
-- =:ABSTRACT:=
-- =:AUTHOR:=
-- =:KEYWORDS:=
-- =:URL:=
-- =:YEAR:=

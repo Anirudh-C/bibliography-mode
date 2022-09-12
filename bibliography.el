@@ -24,6 +24,10 @@
 
 ;;; News
 
+;; Version 0.4
+;; - Add url opening keybinding
+;; - Add search using helm
+;;
 ;; Version 0.3
 ;; - Bug fixes for org-bibtex-read
 ;; - Modified some keybindings
@@ -41,6 +45,10 @@
 (require 'org-indent)
 (require 'org-element)
 (require 'ol-bibtex)
+(require 'ol)
+
+;; External packages
+(require 'helm)
 
 ;; Create a customisation group
 (defgroup bibliography nil
@@ -203,6 +211,34 @@
   (save-buffer)
   (setq buffer-read-only t))
 
+(defun parse-headline (entry)
+  "Function that parses the entries"
+  (cons (concat (plist-get (cadr entry) :raw-value)
+                " ["
+                (plist-get (cadr entry) :AUTHOR)
+                "] ("
+                (plist-get (cadr entry) :YEAR)
+                ")")
+        (format "file:%s::#%s"
+                bibliography-path
+                (plist-get (cadr entry) :CUSTOM_ID))))
+
+(defun search ()
+  "Custom search function"
+  (interactive)
+  (helm :sources
+        (helm-build-sync-source "bibliography"
+          :candidates (org-element-map (org-element-parse-buffer) 'headline #'parse-headline)
+          :action (list
+                   (cons
+                    "Goto entry"
+                    (lambda (candidate)
+                      (org-link-open-from-string candidate)
+                      (delete-other-windows))))
+          :multiline t)
+        :buffer "*helm bibliography*"
+        :prompt "Bibliography Search: "))
+
 (defun bibliography-activate ()
   "Activates bibliography mode."
 
@@ -225,6 +261,11 @@
   ;; Hide any open previews
   (hide-preview)
 
+  ;; Kill *helm bibliography* buffer
+  (when
+      (get-buffer "*helm bibliography*")
+    (kill-buffer "*helm bibliography*"))
+
   ;; Kill the bibliography buffer
   (kill-buffer (current-buffer)))
 
@@ -243,7 +284,8 @@
             (define-key map (kbd "RET") 'show-preview)
             (define-key map (kbd "DEL") 'hide-preview)
             (define-key map (kbd "p") 'show-pdf)
-            (define-key map (kbd "s") 'org-tags-view)
+            (define-key map (kbd "l") 'org-open-at-point)
+            (define-key map (kbd "s") 'search)
             (define-key map (kbd "q") 'bibliography-deactivate)
             map)
 
