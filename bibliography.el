@@ -24,6 +24,9 @@
 
 ;;; News
 
+;; Version 0.5
+;; - Add tags in helm search
+;;
 ;; Version 0.4
 ;; - Add url opening keybinding
 ;; - Add search using helm
@@ -218,7 +221,8 @@
                 (plist-get (cadr entry) :AUTHOR)
                 "] ("
                 (plist-get (cadr entry) :YEAR)
-                ")")
+                ") "
+                (format "%s" (plist-get (cadr entry) :tags)))
         (format "file:%s::#%s"
                 bibliography-path
                 (plist-get (cadr entry) :CUSTOM_ID))))
