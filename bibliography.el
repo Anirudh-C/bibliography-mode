@@ -274,6 +274,7 @@
   (kill-buffer (current-buffer)))
 
 ;; The minor mode
+;;;###autoload
 (define-minor-mode bibliography-mode
   "Minor mode for my annotated bibliography"
 
